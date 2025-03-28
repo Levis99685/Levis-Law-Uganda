@@ -1,0 +1,1121 @@
+# Levis' Law Uganda Website
+
+I'll create a responsive website for your legal practice based on the design of LawPoint Uganda. Here's a complete HTML, CSS, and JavaScript implementation:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levis' Law Uganda - Legal Materials & Judicial Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #e2b04b;
+            --accent-color: #2c5282;
+            --light-color: #f7fafc;
+            --dark-color: #2d3748;
+            --text-color: #4a5568;
+            --white: #ffffff;
+            --gray-light: #edf2f7;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #d69e2e;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 15px auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            font-weight: 600;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)), url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 150px 0 100px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 20px;
+        }
+
+        .service-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        /* Materials Section */
+        .materials {
+            background-color: var(--gray-light);
+        }
+
+        .materials-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            background-color: var(--white);
+            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .material-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .material-icon {
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-size: 2rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .material-content {
+            padding: 20px;
+        }
+
+        .material-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .material-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .download-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            padding: 8px;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: linear-gradient(rgba(26, 54, 93, 0.9), rgba(26, 54, 93, 0.9)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+        }
+
+        .upload-section .section-title {
+            color: var(--white);
+        }
+
+        .upload-section .section-title::after {
+            background-color: var(--secondary-color);
+        }
+
+        .upload-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .about-content p {
+            margin-bottom: 15px;
+        }
+
+        .about-features {
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--gray-light);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .contact-icon {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: var(--white);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .newsletter-form button {
+            padding: 10px 15px;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--white);
+                box-shadow: var(--shadow);
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .services-grid, .materials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .upload-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="https://via.placeholder.com/50x50" alt="Levis' Law Uganda Logo">
+                <div class="logo-text">
+                    <h1>Levis' Law Uganda</h1>
+                    <p>Legal Materials & Judicial Analysis</p>
+                </div>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#materials">Materials</a></li>
+                    <li><a href="#upload">Upload</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Your Trusted Legal Resource in Uganda</h1>
+            <p>Access comprehensive legal materials, in-depth judicial decisions analysis, and contribute to the legal community by sharing your work.</p>
+            <div class="hero-btns">
+                <a href="#materials" class="btn">Browse Materials</a>
+                <a href="#upload" class="btn btn-secondary">Upload Your Work</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Legal Research">
+                    </div>
+                    <div class="service-content">
+                        <h3>Legal Research Materials</h3>
+                        <p>Comprehensive collection of legal resources including statutes, case law, and legal commentaries to support your research needs.</p>
+                        <a href="#materials" class="btn">Explore</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Case Analysis">
+                    </div>
+                    <div class="service-content">
+                        <h3>Judicial Decisions Analysis</h3>
+                        <p>In-depth analysis of landmark and recent judicial decisions with expert commentary on their implications for Ugandan law.</p>
+                        <a href="#materials" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1589391886645-d51941baf7fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Legal Publishing">
+                    </div>
+                    <div class="service-content">
+                        <h3>Legal Publishing Platform</h3>
+                        <p>A platform for legal professionals to publish and share their work with the legal community in Uganda and beyond.</p>
+                        <a href="#upload" class="btn">Publish Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materials Section -->
+    <section class="materials" id="materials">
+        <div class="container">
+            <h2 class="section-title">Legal Materials</h2>
+            <div class="materials-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="cases">Case Analysis</button>
+                <button class="filter-btn" data-filter="statutes">Statutes</button>
+                <button class="filter-btn" data-filter="articles">Articles</button>
+                <button class="filter-btn" data-filter="reports">Reports</button>
+            </div>
+            <div class="materials-grid">
+                <div class="material-card" data-category="cases">
+                    <div class="material-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="material-content">
+                        <h3>Landmark Constitutional Cases 2023</h3>
+                        <p>Detailed analysis of key constitutional cases decided by the Supreme Court of Uganda in 2023.</p>
+                        <div class="material-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF</span>
+                            <span>2.4 MB</span>
+                        </div>
+                        <a href="#" class="download-btn">Download</a>
+                    </div>
+                </div>
+                <div class="material-card" data-category="statutes">
+                    <div class="material-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="material-content">
+                        <h3>Uganda Laws Compendium 2024</h3>
+                        <p>Updated compilation of all principal laws of Uganda as amended up to January 2024.</p>
+                        <div class="material-meta">
+                            <span><i class="far fa-file-word"></i> DOCX</span>
+                            <span>5.1 MB</span>
+                        </div>
+                        <a href="#" class="download-btn">Download</a>
+                    </div>
+                </div>
+                <div class="material-card" data-category="articles">
+                    <div class="material-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="material-content">
+                        <h3>Digital Rights in Uganda</h3>
+                        <p>Comprehensive article examining the legal framework for digital rights and online freedoms.</p>
+                        <div class="material-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF</span>
+                            <span>1.2 MB</span>
+                        </div>
+                        <a href="#" class="download-btn">Download</a>
+                    </div>
+                </div>
+                <div class="material-card" data-category="reports">
+                    <div class="material-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="material-content">
+                        <h3>Judicial Performance Report 2023</h3>
+                        <p>Annual report on the performance of Uganda's judiciary with statistical analysis.</p>
+                        <div class="material-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF</span>
+                            <span>3.7 MB</span>
+                        </div>
+                        <a href="#" class="download-btn">Download</a>
+                    </div>
+                </div>
+                <div class="material-card" data-category="cases">
+                    <div class="material-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="material-content">
+                        <h3>Commercial Law Cases Digest</h3>
+                        <p>Digest of important commercial law cases with expert commentary on their significance.</p>
+                        <div class="material-meta">
+                            <span><i class="far fa-file-word"></i> DOCX</span>
+                            <span>2.9 MB</span>
+                        </div>
+                        <a href="#" class="download-btn">Download</a>
+                    </div>
+                </div>
+                <div class="material-card" data-category="articles">
+                    <div class="material-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <div class="material-content">
+                        <h3>Land Law Reforms Analysis</h3>
+                        <p>Critical analysis of recent land law reforms and their impact on property rights in Uganda.</p>
+                        <div class="material-meta">
+                            <span><i class="far fa-file-pdf"></i> PDF</span>
+                            <span>1.8 MB</span>
+                        </div>
+                        <a href="#" class="download-btn">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <h2 class="section-title">Upload Your Legal Work</h2>
+            <div class="upload-container">
+                <form class="upload-form" id="upload-form">
+                    <div class="form-group">
+                        <label for="title">Document Title</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Author Name</label>
+                        <input type="text" id="author" name="author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" name="category" required>
+                            <option value="">Select a category</option>
+                            <option value="cases">Case Analysis</option>
+                            <option value="statutes">Statutes</option>
+                            <option value="articles">Articles</option>
+                            <option value="reports">Reports</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Brief Description</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Document</label>
+                        <div class="file-upload">
+                            <button type="button" class="file-upload-btn">Choose File</button>
+                            <input type="file" id="document" name="document" accept=".pdf,.doc,.docx" required>
+                        </div>
+                        <small id="file-name">No file chosen</small>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Upload Document</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Levis' Law Uganda</h2>
+            <div class="about-container">
+                <div class="about-content">
+                    <h2>Providing Quality Legal Resources Since 2015</h2>
+                    <p>Levis' Law Uganda was founded with the mission to make legal information more accessible to legal practitioners, students, and the general public in Uganda.</p>
+                    <p>Our platform serves as a comprehensive repository of legal materials, including statutes, case law, legal articles, and reports, all carefully curated and analyzed for easy understanding and application.</p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Verified Content</h4>
+                                <p>All materials are thoroughly reviewed for accuracy and relevance.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h4>Community Driven</h4>
+                                <p>Legal professionals contribute to our growing library of resources.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Regular Updates</h4>
+                                <p>We continuously update our materials to reflect the latest legal developments.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Levis' Law Uganda Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Address</h4>
+                                <p>Plot 24, Parliamentary Avenue<br>Kampala, Uganda</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+256 700 123456<br>+256 414 123456</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info@levislaw.ug<br>support@levislaw.ug</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Your Name</label>
+                            <input type="text" id="contact-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Your Email</label>
+                            <input type="email" id="contact-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-subject">Subject</label>
+                            <input type="text" id="contact-subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Levis' Law Uganda</h3>
+                    <p>Your premier source for legal materials and judicial analysis in Uganda. We provide comprehensive legal resources and a platform for legal professionals to share their work.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#materials">Materials</a></li>
+                        <li><a href="#upload">Upload</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal Categories</h3>
+                    <ul>
+                        <li><a href="#materials" data-filter="cases">Case Analysis</a></li>
+                        <li><a href="#materials" data-filter="statutes">Statutes</a></li>
+                        <li><a href="#materials" data-filter="articles">Articles</a></li>
+                        <li><a href="#materials" data-filter="reports">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to receive updates on new legal materials and analysis.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Levis' Law Uganda. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (this.getAttribute('href') === '#') return;
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+
+        // Material Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const materialCards = document.querySelectorAll('.material-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                
+                // Filter materials
+                materialCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // File Upload Display
+        const fileInput = document.getElementById('document');
+        const fileName
